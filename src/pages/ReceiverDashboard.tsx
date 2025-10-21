@@ -7,6 +7,7 @@ import BottomNavigation from "@/components/Map/BottomNavigation";
 import { Loader2 } from "lucide-react";
 import AddRequestDialog from "@/components/AddRequestDialog";
 import ChatWindow from "@/components/Chat/ChatWindow";
+import AppHeader from "@/components/AppHeader";
 
 const ReceiverDashboard = () => {
   const [currentTab, setCurrentTab] = useState('map');
@@ -35,9 +36,12 @@ const ReceiverDashboard = () => {
       default: return <MapView userRole="food_receiver" onStartChat={setChattingWith} />;
     }
   };
+  const canGoBack = chattingWith !== null || currentTab !== 'map';
+  const handleBack = () => { if (chattingWith) { setChattingWith(null); } else if (currentTab !== 'map') { setCurrentTab('map'); } };
 
   return (
     <div className="h-screen w-screen flex flex-col">
+      <AppHeader title="Receiver Dashboard" onBack={canGoBack ? handleBack : undefined} />
       <main className="flex-grow h-full w-full">{renderContent()}</main>
       <BottomNavigation currentTab={currentTab} onTabChange={handleTabChange} userRole="food_receiver"/>
       <AddRequestDialog open={showAddDialog} onOpenChange={setShowAddDialog} onSuccess={() => {}} />
