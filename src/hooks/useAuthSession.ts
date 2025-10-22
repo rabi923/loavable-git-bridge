@@ -1,7 +1,7 @@
 // src/hooks/useAuthSession.ts
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/lib/supabaseClient';
 import type { Session, User } from '@supabase/supabase-js';
 import { toast } from 'sonner';
 

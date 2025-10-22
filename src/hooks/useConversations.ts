@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/lib/supabaseClient';
 import type { User } from '@supabase/supabase-js';
 
 export type ConversationDetails = {
@@ -59,7 +59,7 @@ export const useConversations = () => {
             other_user_name: profile?.full_name || null,
             other_user_avatar: profile?.profile_picture_url || null,
             last_message_text: lastMsg?.message_text || null,
-            last_message_at: lastMsg?.created_at || convo.last_message_at,
+            last_message_at: lastMsg?.created_at || convo.last_message_at || null,
             unread_count: unreadCount || 0,
           };
         })
