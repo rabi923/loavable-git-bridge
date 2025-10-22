@@ -33,7 +33,7 @@ const AppHeader = ({ title, onBack, rightSlot }: AppHeaderProps) => {
               <MoreVertical className="h-5 w-5" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="z-[9999]">
             <DropdownMenuItem onClick={() => navigate('/settings')}>
               <Settings className="mr-2 h-4 w-4" /> Settings
             </DropdownMenuItem>
