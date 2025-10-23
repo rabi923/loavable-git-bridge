@@ -15,21 +15,13 @@ const GiverDashboard = () => {
   const [showAddDialog, setShowAddDialog] = useState(false);
   const { user, loading } = useAuthSession('food_giver');
 
-  if (loading || !user) {
-    return <div className="h-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
-  }
-  
-  if (chattingWith) {
-    return <ChatWindow otherUser={chattingWith} onBack={() => setChattingWith(null)} />;
-  }
+  const handleStartChat = useCallback((otherUser: OtherUser) => {
+    setChattingWith(otherUser);
+  }, []);
 
   const handleTabChange = (tab: string) => {
     if (tab === 'add') { setShowAddDialog(true); } else { setCurrentTab(tab); }
   };
-
-  const handleStartChat = useCallback((otherUser: OtherUser) => {
-    setChattingWith(otherUser);
-  }, []);
   
   const renderContent = () => {
     switch (currentTab) {
@@ -39,8 +31,23 @@ const GiverDashboard = () => {
       default: return <MapView userRole="food_giver" onStartChat={handleStartChat} />;
     }
   };
+
   const canGoBack = chattingWith !== null || currentTab !== 'map';
-  const handleBack = () => { if (chattingWith) { setChattingWith(null); } else if (currentTab !== 'map') { setCurrentTab('map'); } };
+  const handleBack = () => { 
+    if (chattingWith) { 
+      setChattingWith(null); 
+    } else if (currentTab !== 'map') { 
+      setCurrentTab('map'); 
+    } 
+  };
+
+  if (loading || !user) {
+    return <div className="h-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
+  }
+  
+  if (chattingWith) {
+    return <ChatWindow otherUser={chattingWith} onBack={() => setChattingWith(null)} />;
+  }
 
   return (
     <div className="h-screen w-screen flex flex-col">
