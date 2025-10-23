@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useAuthSession } from '@/hooks/useAuthSession';
 import MapView, { OtherUser } from "@/components/Map/MapView";
 import ChatList from "@/components/Chat/ChatList";
@@ -26,13 +26,17 @@ const GiverDashboard = () => {
   const handleTabChange = (tab: string) => {
     if (tab === 'add') { setShowAddDialog(true); } else { setCurrentTab(tab); }
   };
+
+  const handleStartChat = useCallback((otherUser: OtherUser) => {
+    setChattingWith(otherUser);
+  }, []);
   
   const renderContent = () => {
     switch (currentTab) {
       case 'chat': return <ChatList onBack={() => setCurrentTab('map')} />;
-      case 'listings': return <MyListings onBack={() => setCurrentTab('map')} />;
+      case 'listings': return <MyListings onBack={() => setCurrentTab('map')} onMessageClick={handleStartChat} />;
       case 'map':
-      default: return <MapView userRole="food_giver" onStartChat={setChattingWith} />;
+      default: return <MapView userRole="food_giver" onStartChat={handleStartChat} />;
     }
   };
   const canGoBack = chattingWith !== null || currentTab !== 'map';

@@ -11,7 +11,7 @@ interface RequestCardProps {
   isOwner?: boolean;
   showContact?: boolean;
   onUpdate?: () => void;
-  onMessageClick?: (receiverId: string) => void;
+  onMessageClick?: (otherUser: { id: string; fullName: string; avatarUrl?: string | null }) => void;
 }
 
 const RequestCard = ({ request, isOwner, showContact, onUpdate, onMessageClick }: RequestCardProps) => {
@@ -128,10 +128,14 @@ const RequestCard = ({ request, isOwner, showContact, onUpdate, onMessageClick }
               <Trash2 className="h-4 w-4" />
             </Button>
           </>
-        ) : showContact && request.receiver_id ? (
+        ) : showContact && request.receiver && request.receiver.id ? (
           <Button
             className="w-full"
-            onClick={() => onMessageClick?.(request.receiver_id)}
+            onClick={() => onMessageClick?.({
+              id: request.receiver.id,
+              fullName: request.receiver.organization_name || request.receiver.full_name || 'Receiver',
+              avatarUrl: request.receiver.profile_picture_url
+            })}
           >
             <MessageCircle className="mr-2 h-4 w-4" />
             Message Organization

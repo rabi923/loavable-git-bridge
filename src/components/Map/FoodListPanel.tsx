@@ -10,7 +10,7 @@ interface FoodListPanelProps {
   userLocation: LocationCoords | null;
   currentUserId?: string;
   onUpdate?: () => void;
-  onMessageClick?: (giverId: string) => void;
+  onMessageClick?: (otherUser: { id: string; fullName: string; avatarUrl?: string | null }) => void;
 }
 
 const FoodListPanel = ({ 

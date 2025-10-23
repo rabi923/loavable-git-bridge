@@ -14,7 +14,7 @@ interface FoodCardProps {
   showContact?: boolean;
   onUpdate?: () => void;
   userLocation?: LocationCoords | null;
-  onMessageClick?: (giverId: string) => void;
+  onMessageClick?: (otherUser: { id: string; fullName: string; avatarUrl?: string | null }) => void;
 }
 
 const FoodCard = ({ listing, isOwner, showContact, onUpdate, userLocation, onMessageClick }: FoodCardProps) => {
@@ -128,10 +128,14 @@ const FoodCard = ({ listing, isOwner, showContact, onUpdate, userLocation, onMes
               <Trash2 className="h-4 w-4" />
             </Button>
           </>
-        ) : showContact && listing.giver_id ? (
+        ) : showContact && listing.giver && listing.giver.id ? (
           <Button
             className="w-full"
-            onClick={() => onMessageClick?.(listing.giver_id)}
+            onClick={() => onMessageClick?.({
+              id: listing.giver.id,
+              fullName: listing.giver.full_name || 'Giver',
+              avatarUrl: listing.giver.profile_picture_url
+            })}
           >
             <MessageCircle className="mr-2 h-4 w-4" />
             Message Giver

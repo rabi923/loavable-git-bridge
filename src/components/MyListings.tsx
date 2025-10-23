@@ -8,9 +8,10 @@ import { useUserLocation } from '@/hooks/useUserLocation';
 
 interface MyListingsProps {
   onBack: () => void;
+  onMessageClick?: (otherUser: { id: string; fullName: string; avatarUrl?: string | null }) => void;
 }
 
-const MyListings = ({ onBack }: MyListingsProps) => {
+const MyListings = ({ onBack, onMessageClick }: MyListingsProps) => {
   const [listings, setListings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);

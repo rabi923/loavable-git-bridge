@@ -8,9 +8,10 @@ import AddRequestDialog from './AddRequestDialog';
 
 interface MyRequestsProps {
   onBack: () => void;
+  onMessageClick?: (otherUser: { id: string; fullName: string; avatarUrl?: string | null }) => void;
 }
 
-const MyRequests = ({ onBack }: MyRequestsProps) => {
+const MyRequests = ({ onBack, onMessageClick }: MyRequestsProps) => {
   const [requests, setRequests] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddDialog, setShowAddDialog] = useState(false);

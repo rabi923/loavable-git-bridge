@@ -10,7 +10,7 @@ interface RequestListPanelProps {
   userLocation: LocationCoords | null;
   currentUserId?: string;
   onUpdate?: () => void;
-  onMessageClick?: (receiverId: string) => void;
+  onMessageClick?: (otherUser: { id: string; fullName: string; avatarUrl?: string | null }) => void;
 }
 
 const RequestListPanel = ({ 
