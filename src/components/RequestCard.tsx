@@ -47,7 +47,7 @@ const RequestCard = ({ request, isOwner, showContact, onUpdate, onMessageClick }
 
   const getUrgencyColor = (urgency: string) => {
     switch (urgency) {
-      case 'urgent': return 'destructive';
+      case 'emergency': return 'destructive';
       case 'high': return 'default';
       case 'medium': return 'secondary';
       default: return 'outline';

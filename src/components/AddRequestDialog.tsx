@@ -144,7 +144,7 @@ const AddRequestDialog = ({ open, onOpenChange, onSuccess }: AddRequestDialogPro
                 <SelectItem value="low">Low</SelectItem>
                 <SelectItem value="medium">Medium</SelectItem>
                 <SelectItem value="high">High</SelectItem>
-                <SelectItem value="urgent">Urgent</SelectItem>
+                <SelectItem value="emergency">Emergency</SelectItem>
               </SelectContent>
             </Select>
           </div>
