@@ -70,8 +70,11 @@ export const useConversations = () => {
   };
   
   useEffect(() => {
+    let currentUserRef: User | null = null;
+
     const init = async () => {
       const { data: { user } } = await supabase.auth.getUser();
+      currentUserRef = user;
       setUser(user);
       if (user) await fetchUserAndConversations(user); else setLoading(false);
     };
@@ -79,7 +82,7 @@ export const useConversations = () => {
 
     const channel = supabase.channel('public:messages')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' },
-        (payload) => { if(user) fetchUserAndConversations(user); }
+        () => { if(currentUserRef) fetchUserAndConversations(currentUserRef); }
       ).subscribe();
 
     return () => { supabase.removeChannel(channel); };

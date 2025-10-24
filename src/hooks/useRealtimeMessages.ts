@@ -73,7 +73,8 @@ export const useRealtimeMessages = (conversationId: string | null) => {
           setMessages(prev => [...prev, newMessage]);
 
           // Mark as read if I'm not the sender
-          if (payload.new.sender_id !== (await supabase.auth.getUser()).data.user?.id) {
+          const { data: { user: currentUser } } = await supabase.auth.getUser();
+          if (currentUser && payload.new.sender_id !== currentUser.id) {
             await supabase.rpc('mark_messages_as_read', {
               p_conversation_id: conversationId
             });

@@ -21,6 +21,8 @@ export const useChat = (otherUserId: string | null) => {
       return;
     }
 
+    // Reset conversation ID when switching users to ensure proper isolation
+    setConversationId(null);
     initConversation();
   }, [otherUserId, currentUserId]);
 
