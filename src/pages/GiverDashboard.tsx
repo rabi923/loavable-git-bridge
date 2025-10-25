@@ -12,6 +12,7 @@ import AppHeader from "@/components/AppHeader";
 const GiverDashboard = () => {
   const [currentTab, setCurrentTab] = useState('map');
   const [chattingWith, setChattingWith] = useState<OtherUser | null>(null);
+  const [inChatConversation, setInChatConversation] = useState(false);
   const [showAddDialog, setShowAddDialog] = useState(false);
   const { user, loading } = useAuthSession('food_giver');
 
@@ -20,12 +21,15 @@ const GiverDashboard = () => {
   }, []);
 
   const handleTabChange = (tab: string) => {
-    if (tab === 'add') { setShowAddDialog(true); } else { setCurrentTab(tab); }
+    if (tab === 'add') { setShowAddDialog(true); } else { 
+      setCurrentTab(tab);
+      if (tab !== 'chat') setInChatConversation(false);
+    }
   };
   
   const renderContent = () => {
     switch (currentTab) {
-      case 'chat': return <ChatList onBack={() => setCurrentTab('map')} />;
+      case 'chat': return <ChatList onBack={() => setCurrentTab('map')} onConversationOpen={() => setInChatConversation(true)} onConversationClose={() => setInChatConversation(false)} />;
       case 'listings': return <MyListings onBack={() => setCurrentTab('map')} onMessageClick={handleStartChat} />;
       case 'map':
       default: return <MapView userRole="food_giver" onStartChat={handleStartChat} />;
@@ -53,7 +57,7 @@ const GiverDashboard = () => {
     <div className="h-screen w-screen flex flex-col">
       <AppHeader title="Giver Dashboard" onBack={canGoBack ? handleBack : undefined} />
       <main className="flex-grow h-full w-full">{renderContent()}</main>
-      {!chattingWith && <BottomNavigation currentTab={currentTab} onTabChange={handleTabChange} userRole="food_giver" />}
+      {!chattingWith && !inChatConversation && <BottomNavigation currentTab={currentTab} onTabChange={handleTabChange} userRole="food_giver" />}
       <AddFoodDialog open={showAddDialog} onOpenChange={setShowAddDialog} onSuccess={() => { /* Consider adding a map refetch here */ }} />
     </div>
   );

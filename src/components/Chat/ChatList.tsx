@@ -12,7 +12,8 @@ const formatTimestamp = (date: Date) => {
   return format(date, 'MMM d');
 };
 
-const ChatList = ({ onBack }: { onBack: () => void }) => {
+interface ChatListProps { onBack: () => void; onConversationOpen?: () => void; onConversationClose?: () => void; }
+const ChatList = ({ onBack, onConversationOpen, onConversationClose }: ChatListProps) => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const { conversations, loading } = useConversations();
 
@@ -20,7 +21,7 @@ const ChatList = ({ onBack }: { onBack: () => void }) => {
     return (
       <ChatWindow
         otherUser={{ id: selectedUser.id, fullName: selectedUser.name, avatarUrl: selectedUser.avatar }}
-        onBack={() => setSelectedUser(null)}
+        onBack={() => { setSelectedUser(null); onConversationClose?.(); }}
       />
     );
   }
@@ -34,7 +35,7 @@ const ChatList = ({ onBack }: { onBack: () => void }) => {
         {loading && <div className="flex items-center justify-center py-12"><Loader2 className="h-6 w-6 animate-spin"/></div>}
         {!loading && conversations.map((conv) => (
           <button key={conv.id}
-            onClick={() => setSelectedUser({ id: conv.other_user_id, name: conv.other_user_name, avatar: conv.other_user_avatar })}
+            onClick={() => { setSelectedUser({ id: conv.other_user_id, name: conv.other_user_name, avatar: conv.other_user_avatar }); onConversationOpen?.(); }}
             className="w-full flex items-center gap-3 p-4 hover:bg-muted/50">
             <Avatar className="h-12 w-12">
               <AvatarImage src={conv.other_user_avatar || undefined} />
