@@ -50,7 +50,7 @@ const ChatWindow = ({ otherUser, onBack }: ChatWindowProps) => {
         })}
         <div ref={messagesEndRef} />
       </main>
-      <footer className="border-t p-4 bg-card">
+      <footer className="border-t p-4 bg-card z-50">
         <div className="flex gap-2">
           <Input value={messageText} onChange={(e) => setMessageText(e.target.value)} onKeyDown={handleKeyDown} placeholder="Type a message..." disabled={chatLoading} />
           <Button onClick={handleSend} size="icon" disabled={!messageText.trim() || chatLoading}><Send className="h-4 w-4" /></Button>
