@@ -46,15 +46,29 @@ export const useChat = (otherUserId: string | null) => {
   };
 
   const sendMessage = async (messageText: string) => {
-    if (!conversationId || !currentUserId || !messageText.trim()) {
-      return;
+    const text = messageText.trim();
+    if (!currentUserId || !text) {
+      return false;
     }
 
     try {
+      // Ensure we have a conversation ID before sending
+      let targetConversationId = conversationId;
+      if (!targetConversationId) {
+        if (!otherUserId) return false;
+        setLoading(true);
+        const { data: convId, error: convError } = await supabase.rpc('get_or_create_conversation', {
+          other_user_id: otherUserId
+        });
+        if (convError) throw convError;
+        targetConversationId = convId as string;
+        setConversationId(targetConversationId);
+      }
+
       const { error } = await supabase.from('messages').insert({
-        conversation_id: conversationId,
+        conversation_id: targetConversationId,
         sender_id: currentUserId,
-        message_text: messageText.trim()
+        message_text: text
       });
 
       if (error) throw error;
@@ -63,13 +77,15 @@ export const useChat = (otherUserId: string | null) => {
       await supabase
         .from('conversations')
         .update({ last_message_at: new Date().toISOString() })
-        .eq('id', conversationId);
+        .eq('id', targetConversationId);
 
       return true;
     } catch (error: any) {
       console.error('Error sending message:', error);
       toast.error('Failed to send message');
       return false;
+    } finally {
+      setLoading(false);
     }
   };
 
