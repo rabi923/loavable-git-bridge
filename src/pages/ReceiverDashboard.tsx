@@ -53,7 +53,7 @@ const ReceiverDashboard = () => {
     <div className="h-screen w-screen flex flex-col">
       <AppHeader title="Receiver Dashboard" onBack={canGoBack ? handleBack : undefined} />
       <main className="flex-grow h-full w-full">{renderContent()}</main>
-      <BottomNavigation currentTab={currentTab} onTabChange={handleTabChange} userRole="food_receiver"/>
+      {!chattingWith && <BottomNavigation currentTab={currentTab} onTabChange={handleTabChange} userRole="food_receiver"/>}
       <AddRequestDialog open={showAddDialog} onOpenChange={setShowAddDialog} onSuccess={() => {}} />
     </div>
   );
