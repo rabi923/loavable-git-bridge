@@ -26,7 +26,7 @@ const ChatWindow = ({ otherUser, onBack }: ChatWindowProps) => {
     if (success) { setMessageText(''); }
   };
   
-  const handleKeyPress = (e: React.KeyboardEvent) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }};
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }};
 
   return (
     <div className="flex flex-col h-screen bg-background">
@@ -52,7 +52,7 @@ const ChatWindow = ({ otherUser, onBack }: ChatWindowProps) => {
       </main>
       <footer className="border-t p-4 bg-card">
         <div className="flex gap-2">
-          <Input value={messageText} onChange={(e) => setMessageText(e.target.value)} onKeyPress={handleKeyPress} placeholder="Type a message..." disabled={chatLoading} />
+          <Input value={messageText} onChange={(e) => setMessageText(e.target.value)} onKeyDown={handleKeyDown} placeholder="Type a message..." disabled={chatLoading} />
           <Button onClick={handleSend} size="icon" disabled={!messageText.trim() || chatLoading}><Send className="h-4 w-4" /></Button>
         </div>
       </footer>
