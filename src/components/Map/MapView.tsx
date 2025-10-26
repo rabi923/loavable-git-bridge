@@ -25,6 +25,7 @@ const MapView = ({ userRole, onStartChat }: MapViewProps) => {
   const mapRef = useRef<L.Map | null>(null);
   const userMarkerRef = useRef<L.Marker | null>(null);
   const dataMarkersRef = useRef<L.LayerGroup>(L.layerGroup());
+  const hasInitiallycentered = useRef(false);
   
   const { location, loading: locationLoading } = useUserLocation();
   const { data, loading: dataLoading } = useMapData(userRole, location);
@@ -41,7 +42,13 @@ const MapView = ({ userRole, onStartChat }: MapViewProps) => {
 
   useEffect(() => {
     if (mapRef.current && location) {
-      mapRef.current.setView([location.lat, location.lng], 15);
+      // Only center the map on the first location update
+      if (!hasInitiallycentered.current) {
+        mapRef.current.setView([location.lat, location.lng], 15);
+        hasInitiallycentered.current = true;
+      }
+      
+      // Always update the user marker position
       if (userMarkerRef.current) {
         userMarkerRef.current.setLatLng([location.lat, location.lng]);
       } else {
