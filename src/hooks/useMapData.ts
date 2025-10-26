@@ -26,13 +26,34 @@ export const useMapData = (
         if (fetchError) throw fetchError;
         setData(Array.isArray(listings) ? listings : []);
       } else {
-        // --- THIS IS THE FIX: Restoring the correct, explicit query ---
-        const { data: requests, error: fetchError } = await supabase.from('food_requests')
-          .select(`*, receiver:profiles!receiver_id (id, full_name, profile_picture_url, organization_name)`)
-          .eq('status', 'active').not('latitude', 'is', null).not('longitude', 'is', null)
+        // Fetch food requests with receiver profile info for givers
+        const { data: requests, error: fetchError } = await supabase
+          .from('food_requests')
+          .select('*')
+          .eq('status', 'active')
+          .not('latitude', 'is', null)
+          .not('longitude', 'is', null)
           .order('created_at', { ascending: false });
+        
         if (fetchError) throw fetchError;
-        setData(Array.isArray(requests) ? requests : []);
+        
+        // Fetch receiver profiles separately and merge
+        if (requests && requests.length > 0) {
+          const receiverIds = [...new Set(requests.map(r => r.receiver_id))];
+          const { data: profiles } = await supabase
+            .from('profiles')
+            .select('id, full_name, profile_picture_url, organization_name')
+            .in('id', receiverIds);
+          
+          const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
+          const enrichedRequests = requests.map(request => ({
+            ...request,
+            receiver: profileMap.get(request.receiver_id)
+          }));
+          setData(enrichedRequests);
+        } else {
+          setData([]);
+        }
       }
     } catch (err) { setError(err); } finally { setLoading(false); }
   };
