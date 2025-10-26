@@ -54,8 +54,10 @@ const MapView = ({ userRole, onStartChat }: MapViewProps) => {
     if (!mapRef.current || !data) return;
     dataMarkersRef.current.clearLayers();
     data.forEach((item: MapDataItem) => {
-      if (item.latitude && item.longitude) {
-        const marker = L.marker([item.latitude, item.longitude]);
+      const lat = Number((item as any).latitude);
+      const lng = Number((item as any).longitude);
+      if (Number.isFinite(lat) && Number.isFinite(lng)) {
+        const marker = L.marker([lat, lng]);
         marker.on('click', () => { setSelectedItem(item); });
         marker.addTo(dataMarkersRef.current);
       }

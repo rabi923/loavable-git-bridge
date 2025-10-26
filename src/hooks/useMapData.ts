@@ -15,7 +15,6 @@ export const useMapData = (
   const [error, setError] = useState<any>(null);
 
   const refetch = async () => {
-    if (!userLocation) { setLoading(false); return; }
     setLoading(true); setError(null);
     try {
       if (userRole === 'food_receiver') {
