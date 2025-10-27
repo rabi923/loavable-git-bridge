@@ -16,7 +16,7 @@ const AppHeader = ({ title, onBack, rightSlot }: AppHeaderProps) => {
   const { signOut } = useAuthSession();
 
   return (
-    <header className="h-14 border-b bg-card flex items-center justify-between px-4 mt-[50px]">
+    <header className="h-14 border-b bg-card flex items-center justify-between px-4 mt-[40px]">
       <div className="flex items-center gap-2">
         {onBack && (
           <Button variant="ghost" size="icon" onClick={onBack} aria-label="Go back">
