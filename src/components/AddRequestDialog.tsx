@@ -30,7 +30,7 @@ const AddRequestDialog = ({ open, onOpenChange, onSuccess }: AddRequestDialogPro
     urgency_level: "medium",
     needed_by: "",
     location_address: "",
-    delivery_preference: "pickup",
+    //delivery_preference: "pickup",
     notes: "",
   });
 
@@ -62,7 +62,7 @@ const AddRequestDialog = ({ open, onOpenChange, onSuccess }: AddRequestDialogPro
         location_address: formData.location_address,
         latitude: location.lat,
         longitude: location.lng,
-        delivery_preference: formData.delivery_preference,
+        //delivery_preference: formData.delivery_preference,
         notes: formData.notes || null,
         status: 'active',
       });
@@ -81,7 +81,7 @@ const AddRequestDialog = ({ open, onOpenChange, onSuccess }: AddRequestDialogPro
         urgency_level: "medium",
         needed_by: "",
         location_address: "",
-        delivery_preference: "pickup",
+        //delivery_preference: "pickup",
         notes: "",
       });
     } catch (error: any) {
@@ -171,7 +171,7 @@ const AddRequestDialog = ({ open, onOpenChange, onSuccess }: AddRequestDialogPro
             />
           </div>
 
-          <div>
+          {/*<div>
             <Label htmlFor="delivery_preference">Preference *</Label>
             <Select value={formData.delivery_preference} onValueChange={(value) => setFormData({ ...formData, delivery_preference: value })}>
               <SelectTrigger>
@@ -182,7 +182,7 @@ const AddRequestDialog = ({ open, onOpenChange, onSuccess }: AddRequestDialogPro
                 <SelectItem value="delivery">Delivery</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div>*/}
 
           <div>
             <Label htmlFor="notes">Additional Notes</Label>
