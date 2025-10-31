@@ -79,7 +79,7 @@ CREATE TABLE public.food_requests (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   receiver_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   people_count INTEGER NOT NULL CHECK (people_count > 0),
-  food_preference TEXT NOT NULL CHECK (food_preference IN ('Vegetarian', 'Non vegetarian', 'Vegan', 'any','Any','Veg','Non veg')),
+  food_preference TEXT NOT NULL CHECK (food_preference IN ('Vegetarian', 'Non vegetarian', 'Vegan', 'any','Any','Veg','Non veg','veg','non veg')),
   urgency_level TEXT NOT NULL CHECK (urgency_level IN ('low', 'medium', 'high', 'emergency')),
   needed_by TIMESTAMPTZ NOT NULL,
   notes TEXT,
