@@ -125,13 +125,17 @@ const AddRequestDialog = ({ open, onOpenChange, onSuccess }: AddRequestDialogPro
 
           <div>
             <Label htmlFor="food_preference">Food Type Needed *</Label>
-            <Input
-              id="food_preference"
-              required
-              value={formData.food_preference}
-              onChange={(e) => setFormData({ ...formData, food_preference: e.target.value })}
-              placeholder="e.g., Vegetarian, Non-veg, Any"
-            />
+            <Select value={formData.food_preference} onValueChange={(value) => setFormData({ ...formData, food_preference: value })} required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select food type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Vegetarian">Vegetarian</SelectItem>
+                <SelectItem value="Non vegetarian">Non Vegetarian</SelectItem>
+                <SelectItem value="Vegan">Vegan</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div>
