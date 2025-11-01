@@ -130,9 +130,9 @@ const AddRequestDialog = ({ open, onOpenChange, onSuccess }: AddRequestDialogPro
                 <SelectValue placeholder="Select food type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Vegetarian">Vegetarian</SelectItem>
-                <SelectItem value="Non vegetarian">Non Vegetarian</SelectItem>
-                <SelectItem value="Vegan">Vegan</SelectItem>
+                <SelectItem value="vegetarian">Vegetarian</SelectItem>
+                <SelectItem value="non_vegetarian">Non Vegetarian</SelectItem>
+                <SelectItem value="vegan">Vegan</SelectItem>
                 <SelectItem value="any">Any</SelectItem>
               </SelectContent>
             </Select>
