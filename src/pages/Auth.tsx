@@ -128,7 +128,7 @@ const Auth = () => {
           <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-2">
             <Leaf className="h-8 w-8 text-white" />
           </div>
-          <CardTitle className="text-3xl font-bold">FoodShare</CardTitle>
+          <CardTitle className="text-3xl font-bold">FoodBridge</CardTitle>
           <CardDescription className="text-base">
             {isLogin ? "Welcome back! Sign in to continue" : "Join us in reducing food waste"}
           </CardDescription>
