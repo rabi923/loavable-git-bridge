@@ -12,7 +12,7 @@ const Index = () => {
           <Leaf className="h-12 w-12 text-white" />
         </div>
         
-        <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           FoodBridge
         </h1>
         
