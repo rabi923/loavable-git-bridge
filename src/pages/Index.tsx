@@ -7,7 +7,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
-      <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-screen text-center">
+      <div className="container mx-auto px-4 py-16 flex flex-col items-end justify-center min-h-screen text-right">
         <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 shadow-[var(--shadow-card)]">
           <Leaf className="h-12 w-12 text-white" />
         </div>
